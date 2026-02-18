@@ -11,7 +11,26 @@ export type NodeStatus =
   | "paused"
   | "inactive";
 
-export type NodeType = "trigger" | "action" | "condition" | "filter";
+export type NodeType =
+  | "trigger"
+  | "action"
+  | "condition"
+  | "filter"
+  // Advanced logic
+  | "ifelse"
+  | "switch"
+  | "loop"
+  // Timing & flow
+  | "delay"
+  | "merge"
+  // Data transformation
+  | "transform"
+  // Integration
+  | "http_request"
+  // Error handling
+  | "error_handler"
+  // Scheduling
+  | "schedule";
 
 export type ConfigStep = 1 | 2 | 3;
 

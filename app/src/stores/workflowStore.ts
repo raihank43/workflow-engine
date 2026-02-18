@@ -68,9 +68,27 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
   addNode: (type, position) => {
     const id = `node-${++nodeIdCounter}`;
     const config = nodeTypeConfig[type];
+
+    // Map NodeType to React Flow node type (component key)
+    const rfTypeMap: Record<string, string> = {
+      trigger: "trigger",
+      action: "action",
+      condition: "condition",
+      filter: "filter",
+      ifelse: "ifelse",
+      switch: "switch",
+      loop: "loop",
+      delay: "delay",
+      merge: "merge",
+      transform: "transform",
+      http_request: "http_request",
+      error_handler: "error_handler",
+      schedule: "schedule",
+    };
+
     const newNode: WorkflowNode = {
       id,
-      type: type === "condition" ? "condition" : type === "trigger" ? "trigger" : "action",
+      type: rfTypeMap[type] || "action",
       position,
       data: {
         label: `New ${config.label.charAt(0) + config.label.slice(1).toLowerCase()}`,
@@ -101,15 +119,27 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
 
   loadWorkflow: (id) => {
     const wf = demoWorkflows[id as keyof typeof demoWorkflows];
+    const nameMap: Record<string, string> = {
+      "wf-ecommerce-fulfillment": "E-commerce Fulfillment Flow",
+      "wf-slack-pipeline": "Slack Notification Pipeline",
+      "wf-customer-onboarding": "Customer Onboarding",
+      "wf-social-auto-post": "Social Auto-Post",
+      "wf-invoice-auto-sync": "Invoice Auto-Sync",
+      "wf-inventory-alerts": "Inventory Alerts",
+      "wf-pdf-report-gen": "PDF Report Gen",
+    };
+    const statusMap: Record<string, "active" | "draft" | "paused"> = {
+      "wf-ecommerce-fulfillment": "active",
+      "wf-customer-onboarding": "active",
+      "wf-inventory-alerts": "active",
+      "wf-invoice-auto-sync": "paused",
+    };
     if (wf) {
       set({
         workflow: {
           id,
-          name:
-            id === "wf-ecommerce-fulfillment"
-              ? "E-commerce Fulfillment Flow"
-              : "Slack Notification Pipeline",
-          status: id === "wf-ecommerce-fulfillment" ? "active" : "draft",
+          name: nameMap[id] || "Untitled Workflow",
+          status: statusMap[id] || "draft",
           lastSaved: new Date(),
         },
         nodes: [...wf.nodes],

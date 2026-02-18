@@ -8,7 +8,7 @@ import {
 } from "@xyflow/react";
 import { useWorkflowStore } from "@/stores/workflowStore";
 import { useUIStore } from "@/stores/uiStore";
-import { TriggerNode, ActionNode, ConditionNode, FilterNode } from "@/components/nodes/BaseNode";
+import { TriggerNode, ActionNode, ConditionNode, FilterNode, IfElseNode, SwitchNode, LoopNode, DelayNode, MergeNode, TransformNode, HttpRequestNode, ErrorHandlerNode, ScheduleNode } from "@/components/nodes/BaseNode";
 import CustomEdge from "@/components/edges/CustomEdge";
 import CanvasControls from "./CanvasControls";
 import CanvasToolbar from "./CanvasToolbar";
@@ -19,6 +19,15 @@ const nodeTypes: NodeTypes = {
   action: ActionNode,
   condition: ConditionNode,
   filter: FilterNode,
+  ifelse: IfElseNode,
+  switch: SwitchNode,
+  loop: LoopNode,
+  delay: DelayNode,
+  merge: MergeNode,
+  transform: TransformNode,
+  http_request: HttpRequestNode,
+  error_handler: ErrorHandlerNode,
+  schedule: ScheduleNode,
 };
 
 const edgeTypes: EdgeTypes = {
