@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visual Workflow Canvas - Setup Step</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5b13ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#161022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .canvas-grid {
+            background-image: radial-gradient(#2d243d 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .node-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+        .step-line {
+            height: 2px;
+            flex-grow: 1;
+            background-color: #2d243d;
+        }
+        .step-line.active {
+            background-color: #5b13ec;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex flex-col">
+<!-- Top Navigation -->
+<header class="h-16 border-b border-primary/20 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md flex items-center justify-between px-6 z-50">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-icons text-primary">arrow_back</span>
+</button>
+<div class="h-6 w-px bg-primary/20"></div>
+<div>
+<h1 class="text-lg font-semibold tracking-tight">E-commerce Fulfillment Flow</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Last saved 2 minutes ago</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 text-sm font-medium hover:bg-primary/10 rounded-lg transition-colors">Draft</button>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg text-sm font-semibold shadow-lg shadow-primary/20 transition-all">Publish Workflow</button>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden relative">
+<!-- Canvas Area -->
+<main class="flex-1 relative canvas-grid overflow-hidden">
+<!-- Floating Toolbar -->
+<div class="absolute top-6 left-1/2 -translate-x-1/2 bg-white/10 dark:bg-slate-900/80 backdrop-blur-xl border border-primary/20 p-1.5 rounded-xl shadow-2xl flex items-center gap-1 z-40">
+<button class="flex items-center gap-2 px-3 py-2 hover:bg-primary/20 rounded-lg transition-colors group">
+<span class="material-icons text-primary text-xl">settings_input_component</span>
+<span class="text-sm font-medium">Webhook</span>
+</button>
+<div class="w-px h-6 bg-primary/20 mx-1"></div>
+<button class="flex items-center gap-2 px-3 py-2 hover:bg-primary/20 rounded-lg transition-colors">
+<span class="material-icons text-blue-400 text-xl">filter_alt</span>
+<span class="text-sm font-medium">Filter</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 hover:bg-primary/20 rounded-lg transition-colors">
+<span class="material-icons text-green-400 text-xl">table_view</span>
+<span class="text-sm font-medium">Sheets</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 hover:bg-primary/20 rounded-lg transition-colors">
+<span class="material-icons text-orange-400 text-xl">mail</span>
+<span class="text-sm font-medium">Email</span>
+</button>
+<div class="w-px h-6 bg-primary/20 mx-1"></div>
+<button class="p-2 hover:bg-primary/20 rounded-lg transition-colors">
+<span class="material-icons text-slate-400">more_horiz</span>
+</button>
+</div>
+<!-- Workflow Nodes Container -->
+<div class="absolute inset-0 p-20 flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full pointer-events-none" style="filter: drop-shadow(0 0 8px rgba(91, 19, 236, 0.2))">
+<!-- Connection Lines -->
+<path d="M 240 300 C 300 300, 320 300, 380 300" fill="none" stroke="#5b13ec" stroke-width="2"></path>
+<path d="M 620 280 C 680 280, 700 180, 760 180" fill="none" stroke="#5b13ec" stroke-width="2"></path>
+<path d="M 620 320 C 680 320, 700 420, 760 420" fill="none" stroke="#5b13ec" stroke-dasharray="4 4" stroke-width="2"></path>
+</svg>
+<!-- Trigger Node -->
+<div class="absolute left-40 top-[260px] w-48 bg-white dark:bg-slate-900 border border-primary/30 rounded-xl node-shadow p-4">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+<span class="material-icons text-primary text-lg">bolt</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Trigger</span>
+</div>
+<p class="text-sm font-semibold">Incoming Webhook</p>
+<p class="text-[10px] text-slate-500 mt-1 uppercase tracking-tighter">Order Created</p>
+</div>
+<!-- Logic Node (Branching) -->
+<div class="absolute left-[380px] top-[240px] w-60 bg-white dark:bg-slate-900 border-2 border-primary rounded-xl node-shadow overflow-hidden">
+<div class="bg-primary/10 p-3 border-b border-primary/20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-icons text-primary text-lg">call_split</span>
+<span class="text-xs font-bold uppercase">Condition</span>
+</div>
+<span class="material-icons text-slate-400 text-sm">settings</span>
+</div>
+<div class="p-4">
+<div class="text-sm font-medium mb-1 italic text-slate-400">IF</div>
+<p class="text-sm font-semibold">Total Amount &gt; $100</p>
+<div class="mt-4 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-green-500 bg-green-500/10 px-1.5 py-0.5 rounded">TRUE</span>
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold text-slate-500 bg-slate-500/10 px-1.5 py-0.5 rounded">FALSE</span>
+<div class="w-2 h-2 rounded-full bg-slate-500"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Success Node (Selected) -->
+<div class="absolute left-[760px] top-[140px] w-52 bg-white dark:bg-slate-900 border-2 border-primary rounded-xl node-shadow ring-4 ring-primary/20">
+<div class="p-4">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+<span class="material-icons text-green-500 text-lg">table_view</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-green-500">Action</span>
+</div>
+<p class="text-sm font-semibold">Log High-Value Order</p>
+<p class="text-[10px] text-slate-500 mt-1">Google Sheets • Active</p>
+</div>
+<div class="bg-primary text-white text-[10px] font-bold text-center py-1">CONFIGURING...</div>
+</div>
+<!-- Failure Node -->
+<div class="absolute left-[760px] top-[380px] w-52 bg-white dark:bg-slate-900 border border-slate-700 rounded-xl node-shadow opacity-60">
+<div class="p-4">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center">
+<span class="material-icons text-orange-500 text-lg">mail</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-orange-500">Action</span>
+</div>
+<p class="text-sm font-semibold">Notify Customer</p>
+<p class="text-[10px] text-slate-500 mt-1">SendGrid • Pending</p>
+</div>
+</div>
+</div>
+<!-- Zoom Controls -->
+<div class="absolute bottom-6 left-6 bg-white dark:bg-slate-900 border border-primary/20 rounded-lg shadow-xl flex items-center p-1">
+<button class="p-2 hover:bg-primary/10 rounded-md"><span class="material-icons text-sm">add</span></button>
+<span class="px-2 text-xs font-medium border-x border-primary/10">85%</span>
+<button class="p-2 hover:bg-primary/10 rounded-md"><span class="material-icons text-sm">remove</span></button>
+<button class="p-2 hover:bg-primary/10 rounded-md ml-1 border-l border-primary/10"><span class="material-icons text-sm">filter_center_focus</span></button>
+</div>
+</main>
+<!-- Configuration Sidebar -->
+<aside class="w-96 bg-white dark:bg-slate-900 border-l border-primary/20 flex flex-col z-50 overflow-y-auto">
+<!-- Sidebar Header -->
+<div class="p-6 border-b border-primary/10">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center">
+<span class="material-icons text-green-500">table_view</span>
+</div>
+<div>
+<h2 class="font-bold text-slate-100">Setup Node</h2>
+<p class="text-xs text-slate-400">Google Sheets Integration</p>
+</div>
+</div>
+<button class="p-2 hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-icons text-slate-500">close</span>
+</button>
+</div>
+<!-- 3-Step Indicator -->
+<div class="flex items-center gap-2">
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-xs font-bold text-white shadow-lg shadow-primary/30">1</div>
+<span class="text-[10px] font-bold text-primary uppercase">Setup</span>
+</div>
+<div class="step-line mb-6"></div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-500">2</div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Config</span>
+</div>
+<div class="step-line mb-6"></div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-500">3</div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Test</span>
+</div>
+</div>
+</div>
+<!-- Setup Form -->
+<div class="p-6 space-y-6 flex-1">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-500 tracking-wider">Node Name</label>
+<input class="w-full bg-slate-800 border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary" type="text" value="Log High-Value Order"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-500 tracking-wider">Select Account</label>
+<div class="relative group">
+<select class="w-full bg-slate-800 border-slate-700 rounded-lg px-4 py-2.5 text-sm appearance-none focus:ring-primary focus:border-primary">
+<option>operations@company.com</option>
+<option>marketing@company.com</option>
+<option>+ Add New Account</option>
+</select>
+<span class="material-icons absolute right-3 top-2.5 text-slate-500 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase text-slate-500 tracking-wider">Spreadsheet ID</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-slate-800 border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary" placeholder="Paste sheet ID or URL..." type="text"/>
+<button class="bg-slate-800 border border-slate-700 p-2.5 rounded-lg hover:bg-slate-700 transition-colors">
+<span class="material-icons text-sm">search</span>
+</button>
+</div>
+<p class="text-[11px] text-slate-500">You can find this in your browser URL bar while the sheet is open.</p>
+</div>
+<div class="p-4 bg-primary/5 border border-primary/20 rounded-xl space-y-3">
+<div class="flex items-center gap-2">
+<span class="material-icons text-primary text-lg">info</span>
+<span class="text-xs font-semibold text-primary">Prerequisite</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">Ensure your Google Sheet has headers in the first row. We will use these headers to map incoming data in the next step.</p>
+</div>
+</div>
+<!-- Sidebar Footer -->
+<div class="p-6 border-t border-primary/10 bg-slate-900/50">
+<div class="flex gap-3">
+<button class="flex-1 px-4 py-3 border border-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors">Cancel</button>
+<button class="flex-[2] bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg text-sm font-bold shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all">
+                        Save &amp; Continue
+                        <span class="material-icons text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+<!-- Background Decoration -->
+<div class="fixed bottom-0 left-0 p-4 z-0 pointer-events-none opacity-20">
+<div class="w-64 h-64 bg-primary/20 blur-[100px] rounded-full"></div>
+</div>
+</body></html>

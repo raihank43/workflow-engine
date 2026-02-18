@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+@theme {
+  --color-primary: #5b13ec;
+  --color-primary-hover: rgba(91, 19, 236, 0.9);
+  --color-primary-glow: rgba(91, 19, 236, 0.2);
+
+  --color-bg-light: #f6f6f8;
+  --color-bg-dark: #161022;
+  --color-bg-dark-deep: #0c0816;
+
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #1a1a1e;
+
+  --color-border-light: #e2e8f0;
+  --color-border-dark: #2d2d35;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  --font-display: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border-dark);
+  }
+
+  body {
+    font-family: var(--font-display);
+    background-color: var(--color-bg-dark);
+    color: #f1f5f9;
+    margin: 0;
+  }
+}
+
+/* Canvas dot grid background */
+.canvas-grid {
+  background-image: radial-gradient(#2d243d 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Node shadows */
+.node-shadow {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+    0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+.node-active {
+  box-shadow: 0 0 0 2px #5b13ec, 0 0 20px rgba(91, 19, 236, 0.3);
+}
+
+.node-glow {
+  box-shadow: 0 0 20px 2px rgba(91, 19, 236, 0.4);
+}
+
+/* Pulse ring animation */
+.pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 0.4; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Sidebar active item */
+.sidebar-item-active {
+  background-color: rgba(91, 19, 236, 0.15);
+  border-right: 3px solid #5b13ec;
+  color: white;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #2d2d35; border-radius: 10px; }
+
+/* Workflow grid */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Sidebar slide-in animation */
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.2s ease-out;
+}
+
+/* Fade-in animation */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+/* React Flow overrides */
+.react-flow__node {
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  width: auto !important;
+}
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  border: 2px solid #5b13ec !important;
+  background: #161022 !important;
+}
+.react-flow__handle:hover {
+  background: #5b13ec !important;
+}

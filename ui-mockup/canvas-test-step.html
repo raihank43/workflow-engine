@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visual Workflow Canvas - Test Step</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5b13ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#161022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .workflow-grid {
+            background-size: 40px 40px;
+            background-image: radial-gradient(circle, rgba(91, 19, 236, 0.1) 1px, transparent 1px);
+        }
+        .node-glow {
+            box-shadow: 0 0 20px 2px rgba(91, 19, 236, 0.4);
+        }
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen overflow-hidden">
+<!-- Top Navigation Bar -->
+<nav class="h-16 border-b border-primary/20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md flex items-center justify-between px-6 z-50 relative">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-xl">account_tree</span>
+</div>
+<div>
+<h1 class="text-sm font-semibold">Slack Notification Pipeline</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Edited 2 mins ago</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="flex items-center text-xs font-medium text-slate-400">
+<span class="w-6 h-6 rounded-full border border-slate-700 flex items-center justify-center mr-2">1</span>
+                    Setup
+                </div>
+<div class="w-8 h-px bg-slate-700"></div>
+<div class="flex items-center text-xs font-medium text-slate-400">
+<span class="w-6 h-6 rounded-full border border-slate-700 flex items-center justify-center mr-2">2</span>
+                    Config
+                </div>
+<div class="w-8 h-px bg-slate-700"></div>
+<div class="flex items-center text-xs font-medium text-primary">
+<span class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center mr-2">3</span>
+                    Test
+                </div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 text-sm font-medium border border-primary/30 rounded-lg hover:bg-primary/10 transition-colors">Discard</button>
+<button class="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover:bg-primary/90 transition-shadow shadow-lg shadow-primary/20">Publish Workflow</button>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="relative h-[calc(100vh-64px)] flex overflow-hidden">
+<!-- Visual Canvas -->
+<div class="flex-grow relative overflow-hidden workflow-grid bg-background-light dark:bg-[#0c0816]">
+<!-- Node 1: Trigger -->
+<div class="absolute top-40 left-20 w-56 p-4 bg-white dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-xl shadow-xl">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+<span class="material-icons text-green-500 text-lg">bolt</span>
+</div>
+<span class="text-sm font-semibold">New Form Entry</span>
+</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-3">
+                    Type: Typeform Trigger
+                </div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-primary/20 border-2 border-primary rounded-full flex items-center justify-center">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- SVG Connections -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<path d="M 304 200 C 380 200, 380 280, 480 280" fill="none" stroke="rgba(91, 19, 236, 0.4)" stroke-width="2"></path>
+<path d="M 704 280 C 780 280, 780 280, 880 280" fill="none" stroke="rgba(91, 19, 236, 0.6)" stroke-width="3"></path>
+</svg>
+<!-- Node 2: Filter -->
+<div class="absolute top-60 left-[480px] w-56 p-4 bg-white dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-xl shadow-xl">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+<span class="material-icons text-blue-500 text-lg">filter_alt</span>
+</div>
+<span class="text-sm font-semibold">Filter Responses</span>
+</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-3">
+                    Match: Score &gt; 80
+                </div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-primary/20 border-2 border-primary rounded-full flex items-center justify-center">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- Active Node 3: Slack (Testing) -->
+<div class="absolute top-60 left-[880px] w-56 p-4 bg-white dark:bg-background-dark border-2 border-primary rounded-xl shadow-xl node-glow relative">
+<!-- Pulse Effect -->
+<div class="absolute -inset-1 bg-primary/20 rounded-xl pulse-ring pointer-events-none"></div>
+<div class="flex items-center gap-3 mb-3 relative">
+<div class="w-8 h-8 bg-[#4A154B]/20 rounded-lg flex items-center justify-center">
+<img class="w-5 h-5" data-alt="Slack logo with distinct colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClZPkjuIxWJleE7hHltxO6x035jBJJAc_V-jxsQ6M9gb8YU-2uBFNILVxSrtZbo50_NOxB1-mXaRGfClFbLhhX4UCxePQ2kr8vh0eBDsa5WdlnWWmDICKbSP5E8BmqQ-bzLcPSEK8X6o-aThuIrZTj5CRIyS0YDTULsRTrH7rt2tu82rECyDX6RPXfFvrH2U4H7GSU21t7gc4C6WxOzsqhI0m0PBBNAd3sNQBOXvTZc5Iu1sXox_qOJ3gya7oR5kI4YdS6D-bo8myQ"/>
+</div>
+<span class="text-sm font-semibold">Send Slack Message</span>
+</div>
+<div class="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-3 relative">
+                    Channel: #sales-leads
+                </div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center">
+<div class="w-2 h-2 bg-slate-600 rounded-full"></div>
+</div>
+<!-- Testing Label -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-[10px] font-bold text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    Testing
+                </div>
+</div>
+<!-- Canvas Zoom/Controls -->
+<div class="absolute bottom-8 left-8 flex items-center gap-2 bg-white dark:bg-background-dark border border-primary/20 p-2 rounded-lg shadow-2xl">
+<button class="p-1 hover:bg-primary/10 rounded transition-colors">
+<span class="material-icons text-lg">add</span>
+</button>
+<span class="text-xs font-medium px-2 border-x border-slate-700">85%</span>
+<button class="p-1 hover:bg-primary/10 rounded transition-colors">
+<span class="material-icons text-lg">remove</span>
+</button>
+<button class="p-1 hover:bg-primary/10 rounded transition-colors ml-2">
+<span class="material-icons text-lg">navigation</span>
+</button>
+</div>
+</div>
+<!-- Right Configuration Panel -->
+<aside class="w-[480px] h-full bg-white dark:bg-background-dark border-l border-primary/20 shadow-[-10px_0_30px_-15px_rgba(0,0,0,0.5)] flex flex-col z-40">
+<!-- Panel Header -->
+<div class="p-6 border-b border-primary/10">
+<div class="flex items-center justify-between mb-2">
+<h2 class="text-lg font-bold flex items-center gap-2">
+<span class="material-icons text-primary">play_circle</span>
+                        Test Step
+                    </h2>
+<button class="text-slate-500 hover:text-slate-300">
+<span class="material-icons">close</span>
+</button>
+</div>
+<p class="text-sm text-slate-400">Validate your connection and output by running a real-world test of this node.</p>
+</div>
+<!-- Panel Content -->
+<div class="flex-grow overflow-y-auto p-6 space-y-8">
+<!-- Run Section -->
+<div class="space-y-4">
+<div class="p-4 rounded-xl bg-primary/5 border border-primary/10">
+<h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-2">Test Data</h3>
+<p class="text-sm text-slate-300 mb-4">The test will use the most recent sample from the previous step.</p>
+<button class="w-full py-3 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg shadow-lg shadow-primary/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-icons text-xl">play_arrow</span>
+                            Run Test
+                        </button>
+</div>
+</div>
+<!-- Test Results -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Test Results</h3>
+<span class="flex items-center gap-1.5 px-2 py-0.5 bg-green-500/10 text-green-500 text-xs font-bold rounded-full border border-green-500/20">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                            SUCCESS
+                        </span>
+</div>
+<!-- JSON Viewer -->
+<div class="relative group">
+<div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 bg-slate-800/80 rounded-md hover:bg-slate-700 text-slate-400">
+<span class="material-icons text-sm">content_copy</span>
+</button>
+</div>
+<pre class="bg-[#0c0816] border border-primary/10 rounded-xl p-4 text-[13px] font-mono leading-relaxed overflow-x-auto"><span class="text-purple-400">{</span>
+  <span class="text-blue-400">"status"</span>: <span class="text-amber-400">200</span>,
+  <span class="text-blue-400">"success"</span>: <span class="text-amber-400">true</span>,
+  <span class="text-blue-400">"data"</span>: <span class="text-purple-400">{</span>
+    <span class="text-blue-400">"message_id"</span>: <span class="text-green-400">"TS12938401"</span>,
+    <span class="text-blue-400">"channel"</span>: <span class="text-green-400">"C012AB3CD"</span>,
+    <span class="text-blue-400">"ts"</span>: <span class="text-green-400">"1634567890.123456"</span>
+  <span class="text-purple-400">}</span>,
+  <span class="text-blue-400">"integration"</span>: <span class="text-green-400">"slack_v2"</span>,
+  <span class="text-blue-400">"execution_time"</span>: <span class="text-amber-400">242</span>
+<span class="text-purple-400">}</span></pre>
+</div>
+</div>
+<!-- Footer Summary -->
+<div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/20">
+<div class="flex items-center gap-3 text-sm">
+<span class="material-icons text-green-500">check_circle</span>
+<span>Connection to Slack verified successfully.</span>
+</div>
+</div>
+</div>
+<!-- Sticky Panel Footer -->
+<div class="p-6 border-t border-primary/10 bg-white dark:bg-background-dark/80 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<button class="flex-1 py-3 text-sm font-semibold border border-slate-700 rounded-lg hover:bg-slate-800 transition-colors">
+                        Retest
+                    </button>
+<button class="flex-[2] py-3 text-sm font-semibold bg-primary text-white rounded-lg hover:bg-primary/90 transition-shadow shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                        Finish &amp; Save
+                        <span class="material-icons text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Floating Tooltips/Utility -->
+<div class="absolute bottom-8 right-[500px] flex flex-col gap-2">
+<div class="bg-background-dark/90 border border-primary/20 p-3 rounded-xl shadow-2xl backdrop-blur-sm max-w-[200px]">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-icons text-primary text-sm">info</span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Pro Tip</span>
+</div>
+<p class="text-[11px] leading-relaxed text-slate-300">
+                    You can use variables from this step in downstream nodes by referencing <code>{{steps.slack_1.output}}</code>
+</p>
+</div>
+</div>
+</main>
+</body></html>
