@@ -13,7 +13,7 @@ export default function SidebarFooter() {
     <div className="flex items-center justify-between border-t border-border-dark px-5 py-3">
       <button
         onClick={isFirstStep ? closeSidebar : prevStep}
-        className="rounded-lg border border-border-dark px-4 py-2 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-white transition-colors"
+        className="rounded-lg border border-border-dark px-4 py-2 text-xs font-medium text-body hover:bg-hover-bg hover:text-heading transition-colors"
       >
         {isFirstStep ? "Cancel" : "Back"}
       </button>

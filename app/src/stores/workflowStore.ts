@@ -27,6 +27,9 @@ interface WorkflowStore {
   nodes: WorkflowNode[];
   edges: WorkflowEdge[];
 
+  // Clipboard
+  copiedNode: WorkflowNode | null;
+
   // Actions
   setNodes: (nodes: WorkflowNode[]) => void;
   setEdges: (edges: WorkflowEdge[]) => void;
@@ -35,6 +38,9 @@ interface WorkflowStore {
   onConnect: OnConnect;
   addNode: (type: NodeType, position: XYPosition) => void;
   deleteNode: (id: string) => void;
+  copyNode: (id: string) => void;
+  duplicateNode: (id: string) => void;
+  pasteNode: (position?: XYPosition) => void;
   updateNodeData: (id: string, data: Partial<WorkflowNode["data"]>) => void;
   loadWorkflow: (id: string) => void;
   updateWorkflowName: (name: string) => void;
@@ -52,6 +58,7 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
 
   nodes: [],
   edges: [],
+  copiedNode: null,
 
   setNodes: (nodes) => set({ nodes }),
   setEdges: (edges) => set({ edges }),
@@ -109,6 +116,51 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
       nodes: get().nodes.filter((n) => n.id !== id),
       edges: get().edges.filter((e) => e.source !== id && e.target !== id),
     }),
+
+  copyNode: (id) => {
+    const node = get().nodes.find((n) => n.id === id);
+    if (node) set({ copiedNode: structuredClone(node) });
+  },
+
+  duplicateNode: (id) => {
+    const node = get().nodes.find((n) => n.id === id);
+    if (!node) return;
+    const newId = `node-${++nodeIdCounter}`;
+    const newNode: WorkflowNode = {
+      ...structuredClone(node),
+      id: newId,
+      position: {
+        x: node.position.x + 50,
+        y: node.position.y + 50,
+      },
+      selected: false,
+      data: {
+        ...node.data,
+        label: `${node.data.label} (copy)`,
+      },
+    };
+    set({ nodes: [...get().nodes, newNode] });
+  },
+
+  pasteNode: (position) => {
+    const copied = get().copiedNode;
+    if (!copied) return;
+    const newId = `node-${++nodeIdCounter}`;
+    const newNode: WorkflowNode = {
+      ...structuredClone(copied),
+      id: newId,
+      position: position || {
+        x: copied.position.x + 80,
+        y: copied.position.y + 80,
+      },
+      selected: false,
+      data: {
+        ...copied.data,
+        label: `${copied.data.label} (copy)`,
+      },
+    };
+    set({ nodes: [...get().nodes, newNode] });
+  },
 
   updateNodeData: (id, data) =>
     set({

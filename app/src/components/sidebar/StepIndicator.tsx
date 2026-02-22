@@ -34,7 +34,7 @@ export default function StepIndicator({ currentStep, onStepClick }: StepIndicato
                   isActive &&
                     "bg-primary text-white shadow-lg shadow-primary/40",
                   isCompleted && "bg-primary text-white",
-                  !isActive && !isCompleted && "bg-slate-800 text-slate-500"
+                  !isActive && !isCompleted && "bg-inactive-bg text-muted"
                 )}
               >
                 {isCompleted ? (
@@ -46,9 +46,9 @@ export default function StepIndicator({ currentStep, onStepClick }: StepIndicato
               <span
                 className={cn(
                   "text-xs font-medium",
-                  isActive && "text-white font-semibold",
+                  isActive && "text-heading font-semibold",
                   isCompleted && "text-primary",
-                  !isActive && !isCompleted && "text-slate-500"
+                  !isActive && !isCompleted && "text-muted"
                 )}
               >
                 {label}

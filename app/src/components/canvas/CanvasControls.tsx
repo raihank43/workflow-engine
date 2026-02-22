@@ -24,19 +24,19 @@ export default function CanvasControls() {
     <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1 rounded-lg border border-border-dark bg-surface-dark/90 p-1 backdrop-blur-md shadow-lg">
       <button
         onClick={handleZoomOut}
-        className="flex h-7 w-7 items-center justify-center rounded text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+        className="flex h-7 w-7 items-center justify-center rounded text-body hover:bg-hover-bg-strong hover:text-heading transition-colors"
         title="Zoom out"
       >
         <span className="material-icons text-sm">remove</span>
       </button>
 
-      <span className="min-w-10 text-center text-[11px] font-medium text-slate-400">
+      <span className="min-w-10 text-center text-[11px] font-medium text-body">
         {zoom}%
       </span>
 
       <button
         onClick={handleZoomIn}
-        className="flex h-7 w-7 items-center justify-center rounded text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+        className="flex h-7 w-7 items-center justify-center rounded text-body hover:bg-hover-bg-strong hover:text-heading transition-colors"
         title="Zoom in"
       >
         <span className="material-icons text-sm">add</span>
@@ -46,7 +46,7 @@ export default function CanvasControls() {
 
       <button
         onClick={handleFitView}
-        className="flex h-7 w-7 items-center justify-center rounded text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+        className="flex h-7 w-7 items-center justify-center rounded text-body hover:bg-hover-bg-strong hover:text-heading transition-colors"
         title="Fit view"
       >
         <span className="material-icons text-sm">fit_screen</span>

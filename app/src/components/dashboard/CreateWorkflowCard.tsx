@@ -11,10 +11,10 @@ export default function CreateWorkflowCard() {
       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-110">
         <span className="material-icons text-2xl">add</span>
       </div>
-      <p className="mt-3 text-sm font-semibold text-slate-400 group-hover:text-white transition-colors">
+      <p className="mt-3 text-sm font-semibold text-body group-hover:text-heading transition-colors">
         New Automation
       </p>
-      <p className="mt-1 text-xs text-slate-600">
+      <p className="mt-1 text-xs text-muted">
         Start from scratch or use a template
       </p>
     </button>

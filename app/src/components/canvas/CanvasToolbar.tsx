@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useWorkflowStore } from "@/stores/workflowStore";
 import type { NodeType } from "@/types/workflow";
 
@@ -30,6 +30,18 @@ const moreItems: ToolbarItem[] = [
 export default function CanvasToolbar() {
   const addNode = useWorkflowStore((s) => s.addNode);
   const [showMore, setShowMore] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showMore) return;
+    const handle = (e: PointerEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setShowMore(false);
+      }
+    };
+    document.addEventListener("pointerdown", handle, true);
+    return () => document.removeEventListener("pointerdown", handle, true);
+  }, [showMore]);
 
   const handleAdd = (type: NodeType) => {
     addNode(type, {
@@ -45,7 +57,7 @@ export default function CanvasToolbar() {
         <button
           key={`${item.label}-${idx}`}
           onClick={() => handleAdd(item.type)}
-          className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors"
+          className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-body hover:bg-primary/10 hover:text-primary transition-colors"
           title={`Add ${item.label}`}
         >
           <span className="material-icons text-sm">{item.icon}</span>
@@ -55,33 +67,30 @@ export default function CanvasToolbar() {
 
       <div className="h-5 w-px bg-border-dark" />
 
-      <div className="relative">
+      <div ref={moreRef} className="relative">
         <button
           onClick={() => setShowMore(!showMore)}
-          className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-500 hover:bg-white/5 hover:text-white transition-colors"
+          className="flex h-7 w-7 items-center justify-center rounded-lg text-muted hover:bg-hover-bg hover:text-heading transition-colors"
         >
           <span className="material-icons text-sm">more_horiz</span>
         </button>
 
         {showMore && (
-          <>
-            <div className="fixed inset-0 z-10" onClick={() => setShowMore(false)} />
             <div className="absolute right-0 top-full mt-2 z-20 w-52 rounded-xl border border-border-dark bg-surface-dark/95 p-1.5 shadow-2xl backdrop-blur-md">
-              <p className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+              <p className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-muted">
                 More Nodes
               </p>
               {moreItems.map((item, idx) => (
                 <button
                   key={`${item.label}-${idx}`}
                   onClick={() => handleAdd(item.type)}
-                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors"
+                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-body hover:bg-primary/10 hover:text-primary transition-colors"
                 >
                   <span className="material-icons text-sm">{item.icon}</span>
                   {item.label}
                 </button>
               ))}
             </div>
-          </>
         )}
       </div>
     </div>

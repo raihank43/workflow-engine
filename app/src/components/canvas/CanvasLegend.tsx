@@ -17,13 +17,13 @@ export default function CanvasLegend({ nodeCount, activeCount }: CanvasLegendPro
       <span className="text-border-dark">|</span>
 
       <span className="flex items-center gap-1.5">
-        <span className="h-2 w-2 rounded-full bg-slate-500" />
-        <span className="font-medium text-slate-400">Draft</span>
+        <span className="h-2 w-2 rounded-full bg-muted" />
+        <span className="font-medium text-body">Draft</span>
       </span>
 
       <span className="text-border-dark">|</span>
 
-      <span className="font-medium text-slate-400">
+      <span className="font-medium text-body">
         {activeCount} / {nodeCount} Nodes Active
       </span>
     </div>

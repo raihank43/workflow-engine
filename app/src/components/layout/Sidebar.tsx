@@ -18,7 +18,7 @@ export default function Sidebar() {
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
           <span className="material-icons text-white text-lg">bolt</span>
         </div>
-        <span className="text-lg font-bold tracking-tight text-white">
+        <span className="text-lg font-bold tracking-tight text-heading">
           FlowStream
         </span>
       </div>
@@ -35,7 +35,7 @@ export default function Sidebar() {
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
                   ? "sidebar-item-active"
-                  : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  : "text-body hover:bg-hover-bg hover:text-heading"
               )}
             >
               <span className="material-icons text-xl">{item.icon}</span>
@@ -52,8 +52,8 @@ export default function Sidebar() {
             <span className="text-sm font-semibold text-primary">RK</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-white">Raihan K.</span>
-            <span className="text-xs text-slate-500">Administrator</span>
+            <span className="text-sm font-medium text-heading">Raihan K.</span>
+            <span className="text-xs text-muted">Administrator</span>
           </div>
         </div>
       </div>

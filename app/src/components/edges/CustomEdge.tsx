@@ -29,7 +29,7 @@ export default function CustomEdge({
       id={id}
       path={edgePath}
       style={{
-        stroke: "#5b13ec",
+        stroke: "var(--t-primary)",
         strokeWidth: 2,
         strokeDasharray: data?.dashed ? "6 4" : undefined,
         ...style,

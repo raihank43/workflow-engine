@@ -6,9 +6,9 @@ interface StatCardProps extends StatCardData {}
 function StatCard({ label, value, valueColor, indicator, indicatorLabel }: StatCardProps) {
   return (
     <div className="rounded-xl border border-border-dark bg-surface-dark p-6">
-      <p className="text-sm text-slate-500">{label}</p>
+      <p className="text-sm text-muted">{label}</p>
       <div className="mt-2 flex items-center gap-2">
-        <span className={cn("text-2xl font-bold", valueColor || "text-white")}>
+        <span className={cn("text-2xl font-bold", valueColor || "text-heading")}>
           {value}
         </span>
         {indicator === "pulse" && (

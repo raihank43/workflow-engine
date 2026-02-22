@@ -1,23 +1,18 @@
 export const theme = {
   colors: {
-    primary: "#5b13ec",
-    primaryHover: "rgba(91, 19, 236, 0.9)",
-    primaryGlow: "rgba(91, 19, 236, 0.2)",
+    primary: "var(--t-primary)",
+    primaryHover: "var(--t-primary-hover)",
+    primaryGlow: "var(--t-primary-glow)",
 
     background: {
-      light: "#f6f6f8",
-      dark: "#161022",
-      darkDeep: "#0c0816",
+      main: "var(--t-bg)",
+      deep: "var(--t-bg-deep)",
     },
     surface: {
-      light: "#ffffff",
-      dark: "#1a1a1e",
-      darkAlt: "rgba(255, 255, 255, 0.03)",
+      main: "var(--t-surface)",
     },
     border: {
-      light: "#e2e8f0",
-      dark: "#2d2d35",
-      primarySubtle: "rgba(91, 19, 236, 0.2)",
+      main: "var(--t-border)",
     },
 
     status: {
@@ -29,7 +24,7 @@ export const theme = {
 
     nodeColors: {
       trigger: "#22c55e",
-      action: "#5b13ec",
+      action: "#22c55e",
       condition: "#5b13ec",
       filter: "#3b82f6",
       email: "#f97316",
@@ -38,7 +33,7 @@ export const theme = {
 
   canvas: {
     gridSize: 30,
-    gridColor: "#2d243d",
+    gridColor: "var(--t-canvas-dot)",
     gridDotSize: 1,
   },
 } as const;

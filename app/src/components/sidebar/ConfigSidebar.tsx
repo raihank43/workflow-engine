@@ -1,5 +1,7 @@
 import { useUIStore } from "@/stores/uiStore";
 import { useWorkflowStore } from "@/stores/workflowStore";
+import { nodeConfigSpecs } from "@/constants/nodeConfigs";
+import type { NodeType } from "@/types/workflow";
 import StepIndicator from "./StepIndicator";
 import SetupStep from "./SetupStep";
 import ConfigStep from "./ConfigStep";
@@ -17,23 +19,17 @@ export default function ConfigSidebar() {
 
   if (!node) return null;
 
-  const stepTitles = {
-    1: "Setup Node",
-    2: "Configure Node",
-    3: "Test Step",
+  const nodeType = node.data.nodeType as NodeType;
+  const spec = nodeConfigSpecs[nodeType];
+
+  const fallback = {
+    setup: { title: "Setup Node", subtitle: "Configure basic settings", icon: "settings" },
+    config: { title: "Configure Node", subtitle: "Map data between nodes", icon: "tune" },
+    test: { title: "Test Step", subtitle: "Verify configuration", icon: "play_circle" },
   };
 
-  const stepSubtitles = {
-    1: "Configure basic node settings",
-    2: "Map data between nodes",
-    3: "Verify node configuration",
-  };
-
-  const stepIcons = {
-    1: "settings",
-    2: "tune",
-    3: "play_circle",
-  };
+  const stepKey = currentStep === 1 ? "setup" : currentStep === 2 ? "config" : "test";
+  const stepSpec = spec?.[stepKey] || fallback[stepKey];
 
   return (
     <div className="flex w-96 flex-col border-l border-border-dark bg-bg-dark-deep animate-slide-in-right">
@@ -43,21 +39,21 @@ export default function ConfigSidebar() {
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/20">
               <span className="material-icons text-lg text-primary">
-                {stepIcons[currentStep]}
+                {stepSpec.icon}
               </span>
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-white">
-                {stepTitles[currentStep]}
+              <h2 className="text-sm font-semibold text-heading">
+                {stepSpec.title}
               </h2>
-              <p className="text-[11px] text-slate-500">
-                {stepSubtitles[currentStep]}
+              <p className="text-[11px] text-muted">
+                {stepSpec.subtitle}
               </p>
             </div>
           </div>
           <button
             onClick={closeSidebar}
-            className="flex h-7 w-7 items-center justify-center rounded text-slate-500 hover:bg-white/5 hover:text-white transition-colors"
+            className="flex h-7 w-7 items-center justify-center rounded text-muted hover:bg-hover-bg hover:text-heading transition-colors"
           >
             <span className="material-icons text-sm">close</span>
           </button>

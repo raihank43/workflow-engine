@@ -50,10 +50,10 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
             </span>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white group-hover:text-primary transition-colors">
+            <h3 className="text-sm font-semibold text-heading group-hover:text-primary transition-colors">
               {workflow.name}
             </h3>
-            <p className="mt-0.5 text-xs text-slate-500">{workflow.lastActivity}</p>
+            <p className="mt-0.5 text-xs text-muted">{workflow.lastActivity}</p>
           </div>
         </div>
         <span
@@ -67,7 +67,7 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
       </div>
 
       {/* Description */}
-      <p className="mt-3 text-sm text-slate-400 line-clamp-2">
+      <p className="mt-3 text-sm text-body line-clamp-2">
         {workflow.description}
       </p>
 
@@ -76,7 +76,7 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
         {workflow.integrations.map((tag) => (
           <span
             key={tag}
-            className="inline-flex h-6 items-center rounded-full bg-white/5 px-2 text-[10px] font-semibold text-slate-400 uppercase"
+            className="inline-flex h-6 items-center rounded-full bg-hover-bg px-2 text-[10px] font-semibold text-body uppercase"
           >
             {tag}
           </span>
@@ -86,7 +86,7 @@ export default function WorkflowCard({ workflow }: WorkflowCardProps) {
       {/* Progress bar (draft) */}
       {workflow.progress && (
         <div className="mt-3">
-          <div className="flex items-center justify-between text-[10px] text-slate-500">
+          <div className="flex items-center justify-between text-[10px] text-muted">
             <span>Configuring</span>
             <span>
               {workflow.progress.current}/{workflow.progress.total}
