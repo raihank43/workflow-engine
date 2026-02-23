@@ -1,8 +1,25 @@
 import StatsOverview from "./StatsOverview";
 import WorkflowGrid from "./WorkflowGrid";
-import { mockDashboardStats, mockWorkflows } from "@/data/mockWorkflows";
+import { mockWorkflows } from "@/data/mockWorkflows";
+import type { StatCardData } from "@/types/workflow";
 
 export default function DashboardPage() {
+  const totalWorkflows = mockWorkflows.length;
+  const activeWorkflows = mockWorkflows.filter((w) => w.status === "active").length;
+
+  const stats: StatCardData[] = [
+    { label: "Total Workflows", value: String(totalWorkflows) },
+    {
+      label: "Active Workflows",
+      value: String(activeWorkflows),
+      valueColor: "text-success",
+      indicator: "pulse",
+      indicatorLabel: "Live",
+    },
+    { label: "Draft", value: String(mockWorkflows.filter((w) => w.status === "draft").length) },
+    { label: "Paused", value: String(mockWorkflows.filter((w) => w.status === "paused").length), valueColor: "text-warning" },
+  ];
+
   return (
     <div className="space-y-6">
       <div>
@@ -12,13 +29,13 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <StatsOverview stats={mockDashboardStats} />
+      <StatsOverview stats={stats} />
 
       <div>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-heading">Your Workflows</h2>
           <span className="text-sm text-muted">
-            {mockWorkflows.length} workflows
+            {totalWorkflows} workflows
           </span>
         </div>
         <WorkflowGrid workflows={mockWorkflows} />

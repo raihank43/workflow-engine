@@ -3,8 +3,6 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { icon: "bolt", label: "Workflows", path: "/" },
-  { icon: "cable", label: "Connections", path: "/connections" },
-  { icon: "history", label: "History", path: "/history" },
   { icon: "settings", label: "Settings", path: "/settings" },
 ];
 

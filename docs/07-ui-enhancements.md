@@ -68,6 +68,39 @@ The header includes a theme toggle button:
 
 Toggle persists across sessions via `localStorage`.
 
+## Sidebar
+
+### Navigation Items
+The sidebar contains only essential navigation:
+- **Workflows** (`/`) — Dashboard with workflow overview
+- **Settings** (`/settings`) — Account configuration
+
+Previously included **Connections** and **History** sections have been removed for a cleaner navigation.
+
+### Light Mode Background
+In light mode, the sidebar uses `--t-bg-deep: #e2e8f0` (Slate-200) for stronger contrast against the main content area (`--t-bg: #f8fafc`).
+
+## Settings Page
+
+A full settings page at `/settings` with four sections:
+
+| Section | Features |
+|---------|----------|
+| **Profile** | Name, email, avatar, role, timezone |
+| **Password & Security** | Current/new password, 2FA toggle |
+| **Notifications** | Toggle switches for workflow success/failure, weekly digest, security alerts |
+| **API Keys** | List existing keys, generate new keys, delete keys |
+
+Each section uses theme-aware styling with `bg-surface-dark`, `border-border-dark`, and `text-heading`/`text-muted` tokens.
+
+## Workflow Overview Stats
+
+Dashboard stats are now computed from actual workflow data instead of hardcoded placeholders:
+- **Total Workflows** — `mockWorkflows.length`
+- **Active Workflows** — filtered by `status === "active"` (with live pulse indicator)
+- **Draft** — filtered by `status === "draft"`
+- **Paused** — filtered by `status === "paused"` (yellow text)
+
 ## Animations
 
 | Animation | CSS Class | Used In |
