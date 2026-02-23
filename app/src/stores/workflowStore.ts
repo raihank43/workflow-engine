@@ -44,6 +44,7 @@ interface WorkflowStore {
   updateNodeData: (id: string, data: Partial<WorkflowNode["data"]>) => void;
   loadWorkflow: (id: string) => void;
   updateWorkflowName: (name: string) => void;
+  saveWorkflow: () => void;
 }
 
 let nodeIdCounter = 100;
@@ -186,6 +187,20 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
       "wf-inventory-alerts": "active",
       "wf-invoice-auto-sync": "paused",
     };
+    // Try localStorage first
+    const saved = localStorage.getItem(`workflow-${id}`);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        set({
+          workflow: { ...parsed.workflow, lastSaved: new Date(parsed.workflow.lastSaved) },
+          nodes: parsed.nodes,
+          edges: parsed.edges,
+        });
+        return;
+      } catch { /* fall through to defaults */ }
+    }
+
     if (wf) {
       set({
         workflow: {
@@ -213,4 +228,16 @@ export const useWorkflowStore = create<WorkflowStore>((set, get) => ({
 
   updateWorkflowName: (name) =>
     set({ workflow: { ...get().workflow, name } }),
+
+  saveWorkflow: () => {
+    const { workflow, nodes, edges } = get();
+    const key = `workflow-${workflow.id}`;
+    const data = {
+      workflow: { ...workflow, lastSaved: new Date().toISOString() },
+      nodes,
+      edges,
+    };
+    localStorage.setItem(key, JSON.stringify(data));
+    set({ workflow: { ...workflow, lastSaved: new Date() } });
+  },
 }));

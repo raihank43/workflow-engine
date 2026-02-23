@@ -21,8 +21,11 @@ export default function CanvasEditorPage() {
       <div className="flex h-screen flex-col bg-bg-dark">
         <CanvasHeader />
         <div className="flex flex-1 overflow-hidden">
-          <div className="flex-1">
+          <div className="relative flex-1">
             <WorkflowCanvas />
+            {sidebarOpen && (
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/20" />
+            )}
           </div>
           {sidebarOpen && <ConfigSidebar />}
         </div>
