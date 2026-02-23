@@ -171,6 +171,8 @@ export default function WorkflowCanvas() {
           if (!justOpenedPicker.current) setPickerPos(null);
         }}
         defaultEdgeOptions={{ type: "custom" }}
+        selectionOnDrag
+        multiSelectionKeyCode="Shift"
         fitView
         fitViewOptions={{ padding: 0.3 }}
         proOptions={{ hideAttribution: true }}
@@ -183,6 +185,31 @@ export default function WorkflowCanvas() {
           color="var(--t-canvas-dot)"
         />
       </ReactFlow>
+
+      {/* Empty state prompt */}
+      {nodes.length === 0 && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="pointer-events-auto flex flex-col items-center text-center animate-fade-in">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
+              <span className="material-icons text-3xl text-primary">bolt</span>
+            </div>
+            <h2 className="text-xl font-bold text-heading">
+              Let's Start Building Your Workflow
+            </h2>
+            <p className="mt-2 max-w-sm text-sm text-body leading-relaxed">
+              Begin by adding a trigger node — it defines the event that kicks off your automation.
+            </p>
+            <button
+              onClick={() => addNode("trigger", { x: 400, y: 250 })}
+              className="mt-5 flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/30 hover:bg-primary-hover active:scale-[0.98] transition-all"
+            >
+              <span className="material-icons text-lg">add</span>
+              Add Trigger
+            </button>
+          </div>
+        </div>
+      )}
+
       <CanvasToolbar />
       <CanvasControls />
       <CanvasLegend nodeCount={nodes.length} activeCount={activeNodeCount} />
