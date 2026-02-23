@@ -32,7 +32,7 @@ export default function ConfigSidebar() {
   const stepSpec = spec?.[stepKey] || fallback[stepKey];
 
   return (
-    <div className="flex w-96 flex-col border-l border-border-dark bg-bg-dark-deep animate-slide-in-right">
+    <div className="flex w-96 flex-col border-l border-border-dark bg-surface-dark animate-slide-in-right">
       {/* Header */}
       <div className="border-b border-border-dark px-5 py-4">
         <div className="flex items-start justify-between">

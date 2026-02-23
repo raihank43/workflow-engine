@@ -56,6 +56,7 @@ export default function WorkflowCanvas() {
   const pendingConnection = useRef<{ source: string; sourceHandle: string | null } | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const justOpenedPicker = useRef(false);
+  const connectionMade = useRef(false);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -73,6 +74,13 @@ export default function WorkflowCanvas() {
 
   const handleConnectEnd = useCallback(
     (event: MouseEvent | TouchEvent) => {
+      // If a valid connection was just made, don't show the popup
+      if (connectionMade.current) {
+        connectionMade.current = false;
+        pendingConnection.current = null;
+        return;
+      }
+
       // Check if the connection was dropped on an existing node/handle
       const target = event.target as HTMLElement;
       if (target.closest(".react-flow__handle") || target.closest(".react-flow__node")) {
@@ -144,7 +152,10 @@ export default function WorkflowCanvas() {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+        onConnect={(params) => {
+          connectionMade.current = true;
+          onConnect(params);
+        }}
         onConnectStart={(_, params) => {
           pendingConnection.current = {
             source: params.nodeId || "",

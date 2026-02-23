@@ -9,12 +9,12 @@ export default function CanvasHeader() {
   const toggleTheme = useUIStore((s) => s.toggleTheme);
 
   return (
-    <header className="flex h-14 items-center justify-between border-b border-border-dark bg-bg-dark-deep/90 px-4 backdrop-blur-md">
+    <header className="flex h-14 items-center justify-between border-b border-border-dark bg-surface-dark px-4">
       <div className="flex items-center gap-3">
         {/* Back */}
         <button
           onClick={() => navigate("/")}
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-colors"
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-body hover:bg-hover-bg-strong hover:text-heading transition-colors"
         >
           <span className="material-icons text-lg">arrow_back</span>
         </button>

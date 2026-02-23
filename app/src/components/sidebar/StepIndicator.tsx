@@ -59,7 +59,7 @@ export default function StepIndicator({ currentStep, onStepClick }: StepIndicato
               <div
                 className={cn(
                   "h-px w-8",
-                  step < currentStep ? "bg-primary" : "bg-border-dark"
+                  step < currentStep ? "bg-primary" : "bg-muted/30"
                 )}
               />
             )}
